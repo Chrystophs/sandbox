@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <head>
+        <title>
+            Chris Video With Slider Control.
+        </title>
+        <!-- Sheet Styles-->
+        <script type="text/javascript" src="./js/jquery.min.js"></script>
+        <script type="text/javascript" src="./js/jquery-ui.min.js"></script>
+        
+    </head>
+
+    <body>
+        <section id="gb-testing-zone" class="gc">
+            <div id="gb-video-wrapper">
+                <video class="cs-video-slider" width="100%">
+                    <source src="https://r2---sn-hp57knsl.c.drive.google.com/videoplayback?expire=1543705267&ei=c9oCXImZO8jN-wXUrpjwBw&ip=173.225.211.209&cp=QVNJVUhfVFJUSFhOOlBEVU1iZDNUeXU5M1doLUNwSlN5dzRFY3B6eWJEblFITUV2Vnd4eDdQU28&id=8930a2294d0a3148&itag=37&source=webdrive&requiressl=yes&mm=30&mn=sn-hp57knsl&ms=nxu&mv=m&pl=20&ttl=transient&susc=dr&driveid=1m4JJNz6enTMDWcjUjtauMiuZ1nnbXq1F&app=explorer&mime=video/mp4&dur=87.516&lmt=1543606445848337&mt=1543690825&sparams=expire,ei,ip,cp,id,itag,source,requiressl,ttl,susc,driveid,app,mime,dur,lmt&sig=AIpKg0IwRQIhALg-ZvqqsI92AkTbFPJdHybCa9s1keVtvyV5zJM2K-QUAiAXB6jvW3RPv9lqcN8tgXrKvnWAirAvjGnVtZuQMlmZ5A==&lsparams=mm,mn,ms,mv,pl&lsig=ADGRJxowRQIgOTJaoGGi83ULGZupSIFrZAZ-gsEgFLjsN3fWxvq9VS0CIQCLOvgtYHDxuT4JEXB4epa_rDbl8RS48Ag5t6MlfKuxnA==&cpn=5hUR_9UW-GXGMNru&c=WEB_EMBEDDED_PLAYER&cver=20181129" type="video/mp4"></source>
+                    Your browser does not support HTML5 video.
+                </video>
+                <div class="cs-control-wrapper"></div>
+                <style>
+                    #gb-video-wrapper {
+                        position: relative;
+                        max-width: 50%;
+                        margin: 0 auto;
+                    }
+                    .cs-control-wrapper {
+                        position: absolute;
+                        display: grid;
+                        align-content: center;
+                        top: 20px;
+                        width: 50%;
+                        left: 0;
+                        right: 0;
+                        margin: 0 auto;
+                        padding: 5px 10px;
+                        background: #FFF;
+                        border-radius: 3px;
+                    }
+                    .cs-vid-seeker {
+                        position: relative;
+                        width: 100%;
+                    }
+                </style>
+                <script type="text/javascript">
+                    $(function(){
+                        ChrisVidSlider.Init();
+                    });
+                    var ChrisVidSlider = {
+                        
+                        Init: function() {
+                            var _this = this;
+                            $(window).on("load", function() { _this.vidSetup(); });
+                        },
+                        vidSetup: function() {
+                            $(".cs-video-slider").each(function(index, video){
+                                // Add ID's
+                                $(video).attr("id", "cs-vid-slider-" + index);
+                                // Create Slider
+                                $(video).siblings(".cs-control-wrapper").html("<input id='cs-vid-seeker-" + index + "' data-vidController='cs-vid-slider-" + index + "' class='cs-vid-seeker' type='range' min='0' max='100' value='0' step='0.5' >");
+                            });
+
+                            $(".cs-vid-seeker").on("input", function() {
+                                // Get Correct Seeker Bar
+                                var sB = $(this).attr('id'),
+                                    sB = document.getElementById(sB),
+                                    vid = $(this).attr('data-vidController'),
+                                    vid = document.getElementById(vid);
+
+                                var seekTo = vid.duration * (sB.value / 100);
+                                vid.currentTime = seekTo;
+                                
+                            });
+                        }
+                    }
+                </script>
+            </div>
+        </section>
+        <aside id="gb-current-projects" class="gc">
+
+        </aside>
+        <footer>
+
+        </footer>
+    </body>
+</html>
